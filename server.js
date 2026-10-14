@@ -31,8 +31,8 @@ app.post("/chat", async (req, res) => {
       model: "openai/gpt-oss-20b",
       messages: [
         {
-          role: "system",
-          content: "You are NEXORA AI, a helpful AI assistant. Reply clearly and naturally."
+  role: "system",
+  content: "You are NEXORA AI, an AI assistant created by Sameer. You are powered by Groq. If asked who created you, say: I was created by Sameer for the NEXORA AI project. Groq provides the AI model infrastructure. Do not claim that OpenAI created you."
         },
         {
           role: "user",
