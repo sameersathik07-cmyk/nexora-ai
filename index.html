@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXORA AI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .app {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+    }
+    header {
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #29334b;
+    }
+    header h1 { margin: 0; color: #69e6ff; }
+    #chat {
+      flex: 1;
+      padding: 16px 0;
+    }
+    .message {
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .user { background: #203b61; margin-left: 35px; }
+    .bot { background: #192238; margin-right: 35px; }
+    .controls { display: flex; gap: 8px; }
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #394761;
+      background: #111a2c;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 14px;
+      background: #69e6ff;
+      color: #08101c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>NEXORA AI ✳</h1>
+      <p>Your AI assistant</p>
+    </header>
+
+    <div id="chat">
+      <div class="message bot">Hi! I'm NEXORA AI. How can I help you?</div>
+    </div>
+
+    <form class="controls" id="chatForm">
+      <input id="promptBox" placeholder="Ask NEXORA anything..." autocomplete="off">
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
+  </main>
+
+  <script src="./ai.js"></script>
+  <script>
+    function showMessage(role, text) {
+      const chat = document.getElementById("chat");
+      const message = document.createElement("div");
+      message.className = "message " + role;
+      message.textContent = text || "";
+      chat.appendChild(message);
+      message.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+
+    document.getElementById("chatForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      sendMessage();
+    });
+  </script>
+</body>
+      </html>
