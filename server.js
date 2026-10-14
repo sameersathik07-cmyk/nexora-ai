@@ -1,19 +1,20 @@
 const express = require("express");
-const cors = require("cors");
+const path = require("path");
 const OpenAI = require("openai");
 
 const app = express();
+const PORT = process.env.PORT || 10000;
 
-app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
 const client = new OpenAI({
   baseURL: "https://router.huggingface.co/v1",
-  apiKey: process.env.HF_TOKEN,
+  apiKey: process.env.HF_TOKEN
 });
 
 app.get("/", (req, res) => {
-  res.send("NEXORA AI Backend is running!");
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.post("/chat", async (req, res) => {
@@ -22,16 +23,16 @@ app.post("/chat", async (req, res) => {
 
     if (!message) {
       return res.status(400).json({
-        error: "Please enter a message."
+        error: "Message is required"
       });
     }
 
-    const response = await client.chat.completions.create({
+    const completion = await client.chat.completions.create({
       model: "zai-org/GLM-5.3-Flash:zai-org",
       messages: [
         {
           role: "system",
-          content: "You are NEXORA AI, a helpful and friendly AI assistant."
+          content: "You are NEXORA AI, a helpful AI assistant. Reply clearly and naturally."
         },
         {
           role: "user",
@@ -41,19 +42,18 @@ app.post("/chat", async (req, res) => {
     });
 
     res.json({
-      reply: response.choices[0].message.content
+      reply: completion.choices[0].message.content
     });
+
   } catch (error) {
     console.error("AI error:", error.message);
 
     res.status(500).json({
-      error: "NEXORA AI could not generate a response. Please try again."
+      error: "AI request failed. Check your HF_TOKEN and model access."
     });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`NEXORA AI running on port ${PORT}`);
 });
