@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 const client = new OpenAI({
-  baseURL: "https://router.huggingface.co/v1",
-  apiKey: process.env.HF_TOKEN
+  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.GROQ_API_KEY
 });
 
 app.get("/", (req, res) => {
@@ -28,7 +28,7 @@ app.post("/chat", async (req, res) => {
     }
 
     const completion = await client.chat.completions.create({
-      model: "zai-org/GLM-5.3-Flash:zai-org",
+      model: "openai/gpt-oss-20b",
       messages: [
         {
           role: "system",
@@ -46,10 +46,10 @@ app.post("/chat", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("AI error:", error.message);
+    console.error("Groq AI error:", error.message);
 
     res.status(500).json({
-      error: "AI request failed. Check your HF_TOKEN and model access."
+      error: "AI request failed. Check GROQ_API_KEY and model availability."
     });
   }
 });
