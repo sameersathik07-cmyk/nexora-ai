@@ -44,6 +44,92 @@ html,body{height:100%;width:100%}body{font-family:Arial,sans-serif;background:va
 .overlay{display:none}
 @media(max-width:720px){.sidebar{position:fixed;z-index:5;left:0;top:0;bottom:0;width:min(285px,85vw);transform:translateX(-105%);transition:transform .25s}.sidebar.open{transform:translateX(0)}.side-close{display:block}.overlay{position:fixed;inset:0;z-index:4;background:#0008}.overlay.show{display:block}.mobile-brand{display:flex}.mobile-brand .logo{width:34px;height:34px;font-size:18px}.mobile-brand h1{font-size:13px}.header-status{display:none}header{padding:10px 11px;min-height:60px}.icon-btn{width:35px;height:35px}#messages{padding:19px 13px}.composer-area{padding:10px}.hero-logo{width:73px;height:73px;font-size:36px}#welcome h2{font-size:29px}.message{gap:8px}.avatar{width:31px;height:31px}.bubble{font-size:12px;padding:10px 12px}}
 @media(max-width:360px){.suggestions{grid-template-columns:1fr}}
+ /* SYROX AI — PREMIUM UI UPGRADE */
+
+body {
+  background-image:
+    radial-gradient(ellipse at 15% 15%, #123b6328, transparent 45%),
+    radial-gradient(ellipse at 85% 85%, #174b7820, transparent 45%);
+  background-attachment: fixed;
+}
+
+.app {
+  position: relative;
+  isolation: isolate;
+}
+
+.sidebar,
+header,
+.composer-area {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.logo,
+.hero-logo {
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.logo:hover,
+.hero-logo:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 35px #65b8ff80;
+}
+
+.icon-btn,
+.new-chat,
+.send-btn,
+.suggestion {
+  transition: all .25s ease;
+}
+
+.icon-btn:hover,
+.new-chat:hover,
+.send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 22px #65b8ff35;
+}
+
+.suggestion:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px #65b8ff20;
+  border-color: #65b8ff90;
+}
+
+.message {
+  animation: syroxMessage .35s ease both;
+}
+
+@keyframes syroxMessage {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-logo {
+  animation: syroxGlow 3s ease-in-out infinite;
+}
+
+@keyframes syroxGlow {
+  0%, 100% {
+    box-shadow: 0 0 18px #65b8ff30;
+  }
+  50% {
+    box-shadow: 0 0 38px #65b8ff75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
 </style>
 </head>
 <body>
