@@ -130,6 +130,99 @@ header,
     transition-duration: .01ms !important;
   }
 }
+ /* SYROX AI — FUTURISTIC UPGRADE 2.0 */
+
+body {
+  background-image:
+    radial-gradient(ellipse at 15% 20%, #0875c52b, transparent 45%),
+    radial-gradient(ellipse at 85% 80%, #164b8b30, transparent 45%);
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .16;
+  background-image:
+    linear-gradient(#65b8ff18 1px, transparent 1px),
+    linear-gradient(90deg, #65b8ff18 1px, transparent 1px);
+  background-size: 42px 42px;
+  animation: cyberGrid 25s linear infinite;
+}
+
+@keyframes cyberGrid {
+  from { background-position: 0 0; }
+  to { background-position: 42px 42px; }
+}
+
+.logo, .hero-logo {
+  box-shadow:
+    0 0 15px #65b8ff55,
+    0 0 35px #65b8ff25,
+    inset 0 0 12px #ffffff35;
+}
+
+.composer {
+  transition: .3s ease;
+}
+
+.composer:focus-within {
+  border-color: #65b8ff;
+  box-shadow:
+    0 0 12px #65b8ff35,
+    0 0 30px #65b8ff18;
+}
+
+.bubble {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 5px 22px #00000020;
+}
+
+.suggestion {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: .3s ease;
+}
+
+.suggestion:hover {
+  border-color: #65b8ff;
+  box-shadow: 0 0 22px #65b8ff30;
+  transform: translateY(-5px);
+}
+
+.send-btn {
+  box-shadow: 0 0 15px #65b8ff40;
+  transition: .25s ease;
+}
+
+.send-btn:hover {
+  box-shadow: 0 0 28px #65b8ff90;
+  transform: scale(1.06);
+}
+
+#messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+#messages::-webkit-scrollbar-thumb {
+  background: #65b8ff55;
+  border-radius: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 </style>
 </head>
 <body>
