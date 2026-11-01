@@ -65,5 +65,5 @@ app.post("/chat", async (req, res) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`NEXORA AI running on port ${PORT}`);
+  console.log(`SYROX AI running on port ${PORT}`);
 });
