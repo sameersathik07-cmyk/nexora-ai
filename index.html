@@ -223,6 +223,171 @@ body::before {
     transition: none !important;
   }
 }
+ /* =================================
+   SYROX AI — MEGA UPGRADE 4.0
+================================= */
+
+body {
+  background-image:
+    radial-gradient(ellipse at 15% 15%, #0875c52b, transparent 45%),
+    radial-gradient(ellipse at 85% 85%, #164b8b30, transparent 45%);
+  background-attachment: fixed;
+}
+
+.app {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .14;
+  background-image:
+    linear-gradient(#65b8ff18 1px, transparent 1px),
+    linear-gradient(90deg, #65b8ff18 1px, transparent 1px);
+  background-size: 42px 42px;
+  animation: syroxGrid 30s linear infinite;
+}
+
+@keyframes syroxGrid {
+  to { background-position: 42px 42px; }
+}
+
+.sidebar,
+header,
+.composer-area {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.logo,
+.hero-logo {
+  box-shadow:
+    0 0 15px #65b8ff55,
+    0 0 35px #65b8ff25,
+    inset 0 0 12px #ffffff35;
+  transition: .3s ease;
+}
+
+.logo:hover,
+.hero-logo:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 38px #65b8ff85;
+}
+
+.icon-btn,
+.new-chat,
+.send-btn,
+.suggestion {
+  transition: transform .25s ease, box-shadow .25s ease,
+              border-color .25s ease;
+}
+
+.icon-btn:hover,
+.new-chat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px #65b8ff40;
+}
+
+.suggestion {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.suggestion:hover {
+  transform: translateY(-5px);
+  border-color: #65b8ff;
+  box-shadow: 0 0 24px #65b8ff35;
+}
+
+.composer {
+  transition: .3s ease;
+}
+
+.composer:focus-within {
+  border-color: #65b8ff;
+  box-shadow:
+    0 0 12px #65b8ff45,
+    0 0 30px #65b8ff20;
+}
+
+.message {
+  animation: syroxMessage .35s ease both;
+}
+
+@keyframes syroxMessage {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.assistant .bubble {
+  border-color: #65b8ff55;
+  background: linear-gradient(135deg,#101d30,#0b1422 65%,#10243a);
+  box-shadow: 0 0 15px #65b8ff18;
+  animation: syroxHologram 4s ease-in-out infinite;
+}
+
+@keyframes syroxHologram {
+  0%,100% {
+    border-color: #65b8ff35;
+    box-shadow: 0 0 10px #65b8ff12;
+  }
+  50% {
+    border-color: #65b8ff90;
+    box-shadow: 0 0 22px #65b8ff30;
+  }
+}
+
+.send-btn {
+  box-shadow: 0 0 15px #65b8ff40;
+}
+
+.send-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 28px #65b8ff90;
+}
+
+/* Voice listening animation */
+#voiceBtn.voice-active {
+  color: #fff;
+  background: #176da8;
+  border-color: #65b8ff;
+  animation: syroxVoice 1s ease-in-out infinite;
+}
+
+@keyframes syroxVoice {
+  50% {
+    box-shadow: 0 0 0 8px #65b8ff20,
+                0 0 25px #65b8ff90;
+  }
+}
+
+#messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+#messages::-webkit-scrollbar-thumb {
+  background: #65b8ff65;
+  border-radius: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -257,7 +422,46 @@ $("sendBtn").onclick=sendMessage;promptBox.onkeydown=e=>{if(e.key==="Enter"&&!e.
 $("newChatBtn").onclick=()=>createChat(true);$("clearBtn").onclick=()=>createChat(true);$("menuBtn").onclick=()=>{sidebar.classList.add("open");overlay.classList.add("show")};$("closeSidebar").onclick=closeSidebar;overlay.onclick=closeSidebar;
 $("themeBtn").onclick=()=>{document.body.classList.toggle("light");localStorage.setItem(THEME,document.body.classList.contains("light")?"light":"dark")};
 $("fileBtn").onclick=()=>$("fileInput").click();$("fileInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;if(f.size>50000){toast("Choose a text file under 50 KB");e.target.value="";return}promptBox.value+=(promptBox.value?"\n":"")+"File: "+f.name+"\n"+await f.text();promptBox.focus();e.target.value=""};
-$("voiceBtn").onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast("Voice input is not supported in this browser");return}const rec=new SR();rec.lang="en-IN";rec.onresult=e=>{promptBox.value+=(promptBox.value?" ":"")+e.results[0][0].transcript};rec.onerror=()=>toast("Voice input was not completed");rec.start()};
+$("voiceBtn").onclick=()=>{
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+  if(!SR){
+    toast("Voice input is not supported in this browser");
+    return;
+  }
+
+  const rec=new SR();
+  const voiceBtn=$("voiceBtn");
+
+  rec.lang="en-IN";
+  rec.interimResults=true;
+
+  voiceBtn.classList.add("voice-active");
+
+  rec.onresult=e=>{
+    let transcript="";
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      transcript+=e.results[i][0].transcript;
+    }
+
+    promptBox.value=transcript;
+  };
+
+  rec.onerror=()=>{
+    toast("Voice input was not completed");
+  };
+
+  rec.onend=()=>{
+    voiceBtn.classList.remove("voice-active");
+  };
+
+  try {
+    rec.start();
+  } catch(e) {
+    voiceBtn.classList.remove("voice-active");
+    toast("Voice input could not start");
+  }
+};
 try{const t=localStorage.getItem(THEME)||localStorage.getItem("nexora_pro_theme");if(t==="light")document.body.classList.add("light")}catch{}
 load();renderHistory();renderMessages();
 </script>
